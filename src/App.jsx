@@ -9,71 +9,71 @@ import { useRef, useState } from 'react';
 
 function App() {
 
-  const [principle,setPrinciple]=useState(0)
-  const [rate,setRate]=useState(0)
-  const [year,setYear]=useState(0)
-  const [interest,setInterest]=useState(0)
+  const [principle, setPrinciple] = useState(0)
+  const [rate, setRate] = useState(0)
+  const [year, setYear] = useState(0)
+  const [interest, setInterest] = useState(0)
 
-  const [invalidPrinciple,setInvalidPrinciple]=useState(false)
-  const [invaliRate,setInvalidRate]=useState(false)
-  const [invalidYear,setInvalidYear]=useState(false)
+  const [invalidPrinciple, setInvalidPrinciple] = useState(false)
+  const [invaliRate, setInvalidRate] = useState(false)
+  const [invalidYear, setInvalidYear] = useState(false)
 
 
-  const validateInput=(inputTarget)=>{
+  const validateInput = (inputTarget) => {
 
-    const {name,value}=inputTarget
+    const { name, value } = inputTarget
     //console.log(name,value);
 
     //console.log(!!value.match(/^[0-9]*\.?[0-9]+$/))
 
-    if(name=="principle"){
-      if(!!value.match(/^[0-9]*\.?[0-9]+$/)){
+    if (name == "principle") {
+      if (!!value.match(/^[0-9]*\.?[0-9]+$/)) {
         setPrinciple(value)
         setInvalidPrinciple(false)
       }
-      else{
+      else {
         setInvalidPrinciple(true)
       }
     }
 
-    if(name=="rate"){
-      if(!!value.match(/^[0-9]*\.?[0-9]+$/)){
+    if (name == "rate") {
+      if (!!value.match(/^[0-9]*\.?[0-9]+$/)) {
         setRate(value)
         setInvalidRate(false)
       }
-      else{
+      else {
         setInvalidRate(true)
       }
     }
 
-    if(name=="year"){
-      if(!!value.match(/^[0-9]*\.?[0-9]+$/)){
+    if (name == "year") {
+      if (!!value.match(/^[0-9]*\.?[0-9]+$/)) {
         setYear(value)
         setInvalidYear(false)
       }
-      else{
+      else {
         setInvalidYear(true)
       }
     }
-    
+
   }
 
 
-  const handleCalculate=()=>{
+  const handleCalculate = (e) => {
 
-    //e.preventDefaukt()
-    if(principle ==0 || rate==0 || year==0){
+    e.preventDefault()
+    if (principle == 0 || rate == 0 || year == 0) {
       setInterest(0)
     }
-    else{
-      const result=(principle*rate*year)/100
+    else {
+      const result = (principle * rate * year) / 100
       setInterest(result)
     }
-    console.log(principle,rate,year);
-    
+    console.log(principle, rate, year);
+
   }
 
-  const handleReset=()=>{
+  const handleReset = () => {
 
     setPrinciple("");
     setRate("");
@@ -99,7 +99,7 @@ function App() {
           <form action="">
             <div className=' d-flex flex-column'>
               {/* year */}
-              <TextField value={principle||""} onChange={(e)=>validateInput(e.target)} name='principle' className=' pb-2' id="outlined-basic" label="Principle Amount" variant="outlined" />
+              <TextField value={principle || ""} onChange={(e) => validateInput(e.target)} name='principle' className=' pb-2' id="outlined-basic" label="Principle Amount" variant="outlined" />
 
               {invalidPrinciple && <div className=' text-danger pb-4 text-start'>
                 Invalid Principle Amount
@@ -107,7 +107,7 @@ function App() {
 
 
               {/* rate */}
-              <TextField value={rate||""} onChange={(e)=>validateInput(e.target)} name='rate' className=' pb-2' id="outlined-basic" label="Rate" variant="outlined" />
+              <TextField value={rate || ""} onChange={(e) => validateInput(e.target)} name='rate' className=' pb-2' id="outlined-basic" label="Rate" variant="outlined" />
 
               {invaliRate && <div className=' text-danger pb-4 text-start'>
                 Invalid Rate
@@ -115,22 +115,22 @@ function App() {
 
 
               {/* year */}
-              <TextField value={year||""} onChange={(e)=>validateInput(e.target)} name='year' className=' pb-2' id="outlined-basic" label="Year" variant="outlined" />
-            
+              <TextField value={year || ""} onChange={(e) => validateInput(e.target)} name='year' className=' pb-2' id="outlined-basic" label="Year" variant="outlined" />
+
               {invalidYear && <div className=' text-danger pb-4 text-start'>
                 Invalid Year
               </div>}
-            
-            
-            
-            
+
+
+
+              <Stack className=' w-100' direction="row" spacing={2}>
+
+                <Button type='submit' onClick={handleCalculate} disabled={invalidPrinciple || invaliRate || invalidYear} className=' w-50 p-3 fs-4 bg-success' variant="contained">CALCULATE</Button>
+                <Button onClick={handleReset} className=' w-50 p-3 fs-4 text-danger border-danger' variant="outlined">RESET</Button>
+              </Stack>
             </div>
           </form>
-          <Stack className=' w-100' direction="row" spacing={2}>
 
-            <Button type='submit' onClick={handleCalculate} disabled={invalidPrinciple||invaliRate||invalidYear} className=' w-50 p-3 fs-4 bg-success' variant="contained">CALCULATE</Button>
-            <Button onClick={handleReset} className=' w-50 p-3 fs-4 text-danger border-danger' variant="outlined">RESET</Button>
-          </Stack>
         </div>
       </div>
     </>
